@@ -17,16 +17,12 @@ contract LottoProducer {
         uint256 temp = nonZero(_temp);
         uint256 power = nonZero(_power);
         
-        uint256 lottoNumber = temp * power * random();
+        uint256 lottoNumber = random(temp * power);
         lottoNumber = lottoNumber % 100;
         return lottoNumber;
     }
     
-    function random() public view returns (uint256) {
-        return randomWithNonce(0);
-    }
-    
-    function randomWithNonce(uint256 nonce) public view returns (uint256) {
+    function random(uint256 nonce) public view returns (uint256) {
         return uint256(keccak256(block.timestamp, block.difficulty, nonce));
     }
     
@@ -64,7 +60,7 @@ contract Lottoreum is LottoProducer {
     /// params: _finalNumber: Final Number (2-digits) from Lotto Announce
     //  Return: Winner indexs
     function processWinner() public returns (uint256[]) {
-        finalNumber = produceLottoNumber(randomWithNonce(1), randomWithNonce(2));
+        finalNumber = produceLottoNumber(random(1), random(2));
     }
     
     function winners() public returns (uint256[]) {
