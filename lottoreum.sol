@@ -100,4 +100,8 @@ contract Lottoreum is LottoProducer {
     function playerCount() public view returns (uint256) {
       return players.length;
     }
+    
+    function winnerCount() public view returns (uint256) {
+      return winners().length;
+    }
 }
